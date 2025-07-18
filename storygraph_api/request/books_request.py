@@ -10,9 +10,24 @@ class BooksScraper:
         return response.content
 
     @staticmethod
+    @request_exception
+    def fetch_url_authenticated(url, cookies):
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        response = requests.get(url, cookies=cookies, headers=headers)
+        response.raise_for_status()
+        return response.content
+
+    @staticmethod
     def main(book_id):
         url = f"https://app.thestorygraph.com/books/{book_id}"
         return BooksScraper.fetch_url(url)
+
+    @staticmethod
+    def book_page_authenticated(book_id, cookies):
+        url = f"https://app.thestorygraph.com/books/{book_id}"
+        return BooksScraper.fetch_url_authenticated(url, cookies)
 
     @staticmethod
     def community_reviews(book_id):

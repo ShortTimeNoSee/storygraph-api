@@ -9,6 +9,12 @@ class Book:
         return json.dumps(data,indent=4)
 
     @handle_exceptions
+    def reading_progress(self, book_id, cookies):
+        progress = BooksParser.reading_progress(book_id, cookies)
+        data = {"progress": progress}
+        return json.dumps(data, indent=4)
+
+    @handle_exceptions
     def search(self,query):
         data = BooksParser.search(query)
         return json.dumps(data,indent=4)
