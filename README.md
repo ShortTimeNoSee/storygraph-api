@@ -3,6 +3,7 @@ A python package to interact with and fetch data from the [StoryGraph](https://a
 
 ## Features
 - **Book Details**: Fetch detailed information about a book using its unique ID.
+- **Reading Progress**: Get your current reading progress for a book on your "currently reading" shelf.
 - **Search**: Perform a book search on StoryGraph and retrieve the results.
 - **Fetch User lists**: 
     -  currently reading
@@ -67,6 +68,42 @@ print(result)
 }
 ```
 
+-----
+
+### Reading Progress
+
+```python
+# Fetch your reading progress for a book
+# Requires authentication cookies
+from storygraph_api import Book
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+# Get cookies from your .env file
+# _STORYGRAPH_SESSION=your_session_cookie
+# REMEMBER_USER_TOKEN=your_remember_token
+cookies = {
+    "_storygraph_session": os.getenv('_STORYGRAPH_SESSION'),
+    "remember_user_token": os.getenv('REMEMBER_USER_TOKEN'),
+}
+
+book_id = "1c023e31-637b-41d9-ba64-260c3c1b0f3d"
+book = Book()
+result = book.reading_progress(book_id, cookies)
+print(result)
+```
+
+#### Result:
+
+```json
+{
+    "progress": "70%"
+}
+```
+
+-----
 
 ### User List:
 
